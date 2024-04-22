@@ -17,6 +17,11 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .footer-text {
+            text-decoration: none;
+            text-align: center;
+            margin: 20px;
+        }
     </style>
 </head>
 <body class="text-gray-700">
@@ -25,6 +30,9 @@
     <div class="flex flex-col justify-center items-center mt-8">
         <label for="cryptoAddress" class="text-xl mb-4">USDT TRC20 address:</label>
         <input type="text" value="{{ crypto_address }}" id="cryptoAddress" readonly class="rounded-lg p-2 text-lg w-96" style="border: 1px solid #e80c3e;">
+    </div>
+    <div class="text-center mt-8">
+        <a href="{{ url_for('index') }}" class="footer-text gradient-text">return</a>
     </div>
 </body>
 </html>

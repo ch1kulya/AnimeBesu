@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap');
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #fefeeb;
+        }
+        .gradient-text {
+            background: #e80c3e;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .form-input {
+            border: 1px solid #e80c3e;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            width: calc(100% - 20px);
+        }
+        .form-button {
+            background: #e80c3e;
+            border: none;
+            border-radius: 5px;
+            color: #fefeeb;
+            margin: 10px;
+            padding: 10px;
+            width: calc(100% - 20px);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+    <h1 class="text-center text-4xl font-bold my-8 gradient-text">Admin Login</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="text-center text-xl font-semibold p-4 gradient-text">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="post" class="w-full max-w-sm mx-auto">
+        <input type="password" name="password" placeholder="Password" class="form-input">
+        <input type="submit" value="Login" class="form-button">
+    </form>
+</body>
+</html>

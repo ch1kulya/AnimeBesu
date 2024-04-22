@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap');
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #fefeeb;
+        }
+        .gradient-text {
+            background: #e80c3e;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-text {
+            background: #e80c3e;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .made-with-love {
+            background: #e80c3e;
+            text-decoration: none;
+            text-align: center;
+            margin: 20px;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .movie {
+            border: 1px solid #e80c3e;
+            border-radius: 5px;
+            background-color: #fefeeb;
+        }
+        .movie img {
+            border: 1px solid #e80c3e;
+            border-radius: 5px;
+            margin: 10px;
+            object-fit: cover;
+            width: calc(100% - 20px);
+        }
+        .gradient-button {
+            background: #e80c3e;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            margin-top: 20px;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+    <h1 class="text-center text-4xl font-bold my-8 gradient-text typing">anime bēsu</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 px-4 my-8">
+        {% for movie in movies %}
+            <div class="movie h-full">
+                <a href="{{ url_for('watch', movie_id=movie.id) }}" class="block rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200 ease-in h-full flex flex-col">
+                    <img src="{{ movie.banner }}" alt="{{ movie.title }}" class="w-full flex-grow">
+                    <h2 class="text-center text-xl font-semibold p-4 card-text">{{ movie.title }}</h2>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="flex justify-between items-center mt-8 px-8">
+        <a href="{{ url_for('support') }}" class="gradient-button">support</a>
+        <p class="made-with-love gradient-text">made with ♥ by ch1ka</p>
+        <a href="{{ url_for('admin') }}" class="gradient-button">admin</a>
+    </div>
+</body>
+</html>

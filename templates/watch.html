@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Watch {{ movie.title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap');
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #fefeeb;
+        }
+        .gradient-text {
+            background: #e80c3e;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-button {
+            background: #e80c3e;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            margin-top: 20px;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+    <h1 class="text-center text-4xl font-bold my-8 gradient-text">{{ movie.title }}</h1>
+    <div class="flex justify-center">
+        <video id="video" controls class="shadow-lg rounded-lg max-w-screen-lg min-w-screen-sm mx-4" poster="{{ movie.poster }}"></video>
+    </div>
+    <script>
+        var video = document.getElementById('video');
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource('{{ movie.video_url }}');
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
+        }
+        // HLS.js is not supported on platforms that have native HLS support (like Safari on desktop and mobile),
+        // so you can use the video tag directly instead
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = '{{ movie.video_url }}';
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
+        }
+    </script>
+    <div class="text-center">
+        <a href="{{ url_for('index') }}" class="gradient-button">return</a>
+    </div>
+</body>
+</html>

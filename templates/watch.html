@@ -18,17 +18,10 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .gradient-button {
-            background: #e80c3e;
-            padding: 10px 20px;
-            border-radius: 20px;
+        .footer-text {
             text-decoration: none;
             text-align: center;
-            display: inline-block;
-            margin-top: 20px;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin: 20px;
         }
     </style>
 </head>
@@ -56,8 +49,8 @@
             });
         }
     </script>
-    <div class="text-center">
-        <a href="{{ url_for('index') }}" class="gradient-button">return</a>
+    <div class="text-center mt-8">
+        <a href="{{ url_for('index') }}" class="footer-text gradient-text">return</a>
     </div>
 </body>
 </html>

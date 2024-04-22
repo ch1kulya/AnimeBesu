@@ -23,14 +23,10 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .made-with-love {
-            background: #e80c3e;
+        .footer-text {
             text-decoration: none;
             text-align: center;
             margin: 20px;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
         .movie {
             border: 1px solid #e80c3e;
@@ -43,18 +39,6 @@
             margin: 10px;
             object-fit: cover;
             width: calc(100% - 20px);
-        }
-        .gradient-button {
-            background: #e80c3e;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-            margin-top: 20px;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
@@ -71,9 +55,9 @@
         {% endfor %}
     </div>
     <div class="flex justify-between items-center mt-8 px-8">
-        <a href="{{ url_for('support') }}" class="gradient-button">support</a>
-        <p class="made-with-love gradient-text">made with ♥ by ch1ka</p>
-        <a href="{{ url_for('admin') }}" class="gradient-button">admin</a>
+        <a href="{{ url_for('support') }}" class="footer-text gradient-text">support</a>
+        <p class="footer-text gradient-text">made with ♥ by ch1ka</p>
+        <a href="{{ url_for('admin') }}" class="footer-text gradient-text">admin</a>
     </div>
 </body>
 </html>

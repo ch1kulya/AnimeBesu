@@ -5,42 +5,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&display=swap');
-        body {
-            font-family: 'Roboto Mono', monospace;
-            background-color: #fefeeb;
-        }
-        .gradient-text {
-            background: #e80c3e;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .card-text {
-            background: #e80c3e;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .footer-text {
-            text-decoration: none;
-            text-align: center;
-            margin: 20px;
-        }
-        .movie {
-            border: 1px solid #e80c3e;
-            border-radius: 5px;
-            background-color: #fefeeb;
-        }
-        .movie img {
-            border: 1px solid #e80c3e;
-            border-radius: 5px;
-            margin: 10px;
-            object-fit: cover;
-            width: calc(100% - 20px);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="text-gray-700">
     <h1 class="text-center text-4xl font-bold my-8 gradient-text typing">anime bēsu</h1>

@@ -11,16 +11,25 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
+# Функция для получения топ-10 самых просматриваемых фильмов
+def get_top_movies():
+    conn = get_db_connection()
+    top_movies = conn.execute('SELECT * FROM movies ORDER BY views DESC LIMIT 10').fetchall()
+    conn.close()
+    return top_movies
+
 @app.route('/')
 def index():
     conn = get_db_connection()
-    movies = conn.execute('SELECT * FROM movies ORDER BY RANDOM()').fetchall()
+    movies = conn.execute('SELECT * FROM movies ORDER BY views DESC').fetchall()
     conn.close()
     return render_template('index.html', movies=movies)
 
 @app.route('/watch/<int:movie_id>')
 def watch(movie_id):
     conn = get_db_connection()
+    conn.execute('UPDATE movies SET views = views + 1 WHERE id = ?', (movie_id,))
+    conn.commit()
     movie = conn.execute('SELECT * FROM movies WHERE id = ?', (movie_id,)).fetchone()
     conn.close()
     if movie is not None:
@@ -49,6 +58,8 @@ def movie_form(movie_id=None):
     if not session.get('logged_in'):
         return redirect(url_for('admin'))
     
+    top_movies = get_top_movies()  # Получаем топ-10 фильмов
+    
     conn = get_db_connection()
     movie = None
     if movie_id:
@@ -74,7 +85,7 @@ def movie_form(movie_id=None):
         return redirect(url_for('index'))
     
     conn.close()
-    return render_template('movie_form.html', movie=movie)
+    return render_template('movie_form.html', movie=movie, top_movies=top_movies)
 
 @app.route('/support')
 def support():

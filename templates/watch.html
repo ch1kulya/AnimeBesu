@@ -15,21 +15,29 @@
     </div>
     <script>
         var video = document.getElementById('video');
-        if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource('{{ movie.video_url }}');
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play();
-            });
-        }
-        // HLS.js is not supported on platforms that have native HLS support (like Safari on desktop and mobile),
-        // so you can use the video tag directly instead
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = '{{ movie.video_url }}';
-            video.addEventListener('loadedmetadata', function() {
-                video.play();
-            });
+        var videoUrl = '{{ movie.video_url }}';
+
+        if (videoUrl.endsWith('.m3u8')) {
+            // Условие, когда ссылка является потоком
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource(videoUrl);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            }
+            // Если поток не поддерживается, используем прямое воспроизведение через тег video
+            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = videoUrl;
+                video.addEventListener('loadedmetadata', function() {
+                    video.play();
+                });
+            }
+        } else if (videoUrl.endsWith('.mp4')) {
+            // Условие, когда ссылка - это прямая ссылка на MP4 файл
+            video.src = videoUrl;
+            video.play();
         }
     </script>
     <div class="text-center mt-8">

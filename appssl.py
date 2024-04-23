@@ -14,7 +14,7 @@ def get_db_connection():
 @app.route('/')
 def index():
     conn = get_db_connection()
-    movies = conn.execute('SELECT * FROM movies').fetchall()
+    movies = conn.execute('SELECT * FROM movies ORDER BY RANDOM()').fetchall()
     conn.close()
     return render_template('index.html', movies=movies)
 

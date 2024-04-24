@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Watch {{ movie.title }}</title>
+    <link href="https://cdn.plyr.io/3.6.2/plyr.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -11,10 +12,16 @@
 <body class="text-gray-700">
     <h1 class="text-center text-4xl font-bold my-8 gradient-text">{{ movie.title }}</h1>
     <div class="flex justify-center">
-        <video id="video" controls class="shadow-lg rounded-lg max-w-screen-lg min-w-screen-sm mx-4" poster="{{ movie.poster }}"></video>
+        <div class="overflow-hidden sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl flex justify-center rounded-md shadow-lg">
+            <video id="player" poster="{{ movie.poster }}"></video>
+        </div>
     </div>
+    <script src="https://cdn.plyr.io/3.6.2/plyr.js"></script>
     <script>
-        var video = document.getElementById('video');
+        var player = new Plyr('#player', {
+            controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'pip', 'airplay', 'fullscreen'],
+            autoplay: true
+        });
         var videoUrl = '{{ movie.video_url }}';
 
         if (videoUrl.endsWith('.m3u8')) {
@@ -22,22 +29,32 @@
             if (Hls.isSupported()) {
                 var hls = new Hls();
                 hls.loadSource(videoUrl);
-                hls.attachMedia(video);
+                hls.attachMedia(player.media);
                 hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                    video.play();
+                    player.play();
                 });
             }
             // Если поток не поддерживается, используем прямое воспроизведение через тег video
-            else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = videoUrl;
-                video.addEventListener('loadedmetadata', function() {
-                    video.play();
-                });
+            else if (player.media.canPlayType('application/vnd.apple.mpegurl')) {
+                player.source = {
+                    type: 'video',
+                    sources: [{
+                        src: videoUrl,
+                        type: 'application/vnd.apple.mpegurl'
+                    }]
+                };
+                player.play();
             }
         } else if (videoUrl.endsWith('.mp4')) {
             // Условие, когда ссылка - это прямая ссылка на MP4 файл
-            video.src = videoUrl;
-            video.play();
+            player.source = {
+                type: 'video',
+                sources: [{
+                    src: videoUrl,
+                    type: 'video/mp4'
+                }]
+            };
+            player.play();
         }
     </script>
     <div class="text-center mt-8">

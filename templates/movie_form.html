@@ -12,22 +12,26 @@
 <body class="text-gray-700">
 <div class="content-container">
     <div class="form-container">
-    <h1 class="text-center text-4xl font-bold my-8 gradient-text">Add/Edit Movie</h1>
-    <form method="post" class="w-full max-w-lg mx-auto">
-        <label for="title" class="block text-xl font-semibold p-4 gradient-text">Title:</label>
-        <input type="text" id="title" name="title" value="{{ movie.title if movie else '' }}" required class="form-input">
-        
-        <label for="banner" class="block text-xl font-semibold p-4 gradient-text">Banner:</label>
-        <input type="text" id="banner" name="banner" value="{{ movie.banner if movie else '' }}" required class="form-input">
-        
-        <label for="video_url" class="block text-xl font-semibold p-4 gradient-text">Video URL:</label>
-        <input type="text" id="video_url" name="video_url" value="{{ movie.video_url if movie else '' }}" required class="form-input">
-        
-        <label for="poster" class="block text-xl font-semibold p-4 gradient-text">Poster:</label>
-        <input type="text" id="poster" name="poster" value="{{ movie.poster if movie else '' }}" required class="form-input">
-        
-        <input type="submit" value="Save" class="form-button">
-    </form>
+        <h1 class="text-center text-4xl font-bold my-8 gradient-text">Add/Edit Movie</h1>
+        <form method="post" class="w-full max-w-lg mx-auto">
+            <label for="title" class="block text-xl font-semibold p-4 gradient-text">Title:</label>
+            <input type="text" id="title" name="title" value="{{ movie.title if movie else '' }}" required
+                class="form-input">
+
+            <label for="banner" class="block text-xl font-semibold p-4 gradient-text">Banner:</label>
+            <input type="text" id="banner" name="banner" value="{{ movie.banner if movie else '' }}" required
+                class="form-input">
+
+            <label for="video_url" class="block text-xl font-semibold p-4 gradient-text">Video URL:</label>
+            <input type="text" id="video_url" name="video_url" value="{{ movie.video_url if movie else '' }}" required
+                class="form-input">
+
+            <label for="poster" class="block text-xl font-semibold p-4 gradient-text">Poster:</label>
+            <input type="text" id="poster" name="poster" value="{{ movie.poster if movie else '' }}" required
+                class="form-input">
+
+            <input type="submit" value="Save" class="form-button">
+        </form>
     </div>
     <div class="table-container">
         <h1 class="text-center text-4xl font-bold my-8 gradient-text">Stats</h1>
@@ -45,6 +49,7 @@
         </table>
     </div>
 </div>
-    <a href="{{ url_for('index') }}" class="return-link">Return to Main Page</a>
+<a href="{{ url_for('index') }}" class="return-link p-12">return to main page</a>
+</div>
 </body>
 </html>

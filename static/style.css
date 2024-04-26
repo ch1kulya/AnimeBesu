@@ -4,13 +4,13 @@ body {
     background-color: #fefeeb;
 }
 .gradient-text {
-    background: #e80c3e;
+    background: #fda17b;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 .card-text {
-    background: #e80c3e;
+    background: #fda17b;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -21,26 +21,26 @@ body {
     margin: 20px;
 }
 .movie {
-    border: 1px solid #e80c3e;
+    border: 1px solid #f8cb9b;
     border-radius: 5px;
     background-color: #fefeeb;
 }
 .movie img {
-    border: 1px solid #e80c3e;
+    border: 1px solid #f8cb9b;
     border-radius: 5px;
     margin: 10px;
     object-fit: cover;
     width: calc(100% - 20px);
 }
 .form-input {
-    border: 1px solid #e80c3e;
+    border: 1px solid #f8cb9b;
     border-radius: 5px;
     margin: 10px;
     padding: 10px;
     width: calc(100% - 20px);
 }
 .form-button {
-    background: #e80c3e;
+    background: #f8cb9b;
     border: none;
     border-radius: 5px;
     color: #fefeeb;
@@ -50,7 +50,7 @@ body {
     cursor: pointer;
 }
 .return-link {
-    color: #e80c3e;
+    color: #fda17b;
     text-decoration: none;
     display: block;
     text-align: center;
@@ -73,5 +73,17 @@ body {
     }
 }
 :root {
-    --plyr-color-main: #e80c3e;
+    --plyr-color-main: #fda17b;
+}
+.inscription {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.star {
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
 }

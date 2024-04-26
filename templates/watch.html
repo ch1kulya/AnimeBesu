@@ -9,6 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="{{ url_for('static', filename='comeback.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.10/SmoothScroll.js"></script>
+    <script>SmoothScroll({ animationTime: 600 })</script>
 </head>
 <body class="text-gray-700">
     <h1 class="text-center text-4xl font-bold my-8 gradient-text">{{ movie.title }}</h1>

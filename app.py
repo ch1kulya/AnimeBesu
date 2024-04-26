@@ -23,7 +23,7 @@ def index():
     conn = get_db_connection()
     movies = conn.execute('SELECT * FROM movies ORDER BY views DESC').fetchall()
     conn.close()
-    return render_template('index.html', movies=movies)
+    return render_template('index.html', title='Anime Besu', meta_description='Watch anime movies online for free.', movies=movies)
 
 @app.route('/watch/<int:movie_id>')
 def watch(movie_id):
@@ -33,7 +33,7 @@ def watch(movie_id):
     movie = conn.execute('SELECT * FROM movies WHERE id = ?', (movie_id,)).fetchone()
     conn.close()
     if movie is not None:
-        return render_template('watch.html', movie=movie)
+        return render_template('watch.html', title=f'{movie["title"]} | Anime Besu', meta_description=f'Watch {movie["title"]} anime movie online for free.', movie=movie)
     else:
         return redirect(url_for('index'))
 
@@ -50,7 +50,7 @@ def admin():
             return redirect(url_for('movie_form'))
         else:
             flash('Incorrect password!')
-    return render_template('admin.html')
+    return render_template('admin.html', title='Anime Besu Admin', meta_description='Anime Besu Admin Panel.')
 
 @app.route('/movie_form', methods=['GET', 'POST'])
 @app.route('/movie_form/<int:movie_id>', methods=['GET', 'POST'])  # Добавлен маршрут для редактирования
@@ -85,13 +85,13 @@ def movie_form(movie_id=None):
         return redirect(url_for('index'))
     
     conn.close()
-    return render_template('movie_form.html', movie=movie, top_movies=top_movies)
+    return render_template('movie_form.html', title='Anime Besu Form', meta_description='Anime Besu Form.', movie=movie, top_movies=top_movies)
 
 @app.route('/support')
 def support():
     # Криптоадрес для копирования
     crypto_address = "TC2uMBYesp4tx16xxSeHzW2D9pEivFPRKr"
-    return render_template('support.html', crypto_address=crypto_address)
+    return render_template('support.html', title='Anime Besu Support', meta_description='Anime Besu Support.', crypto_address=crypto_address)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=False)

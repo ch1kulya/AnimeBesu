@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="text-gray-700">
+  <div class="flex flex-col content-center justify-center min-h-screen relative">
     <h1 class="text-center text-4xl font-bold my-8 gradient-text">Admin Login</h1>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -22,5 +23,9 @@
         <input type="password" name="password" placeholder="Password" class="form-input">
         <input type="submit" value="Login" class="form-button">
     </form>
+    <div class="text-center mt-8">
+      <a href="{{ url_for('index') }}" class="footer-text gradient-text">return</a>
+    </div>
+  </div>
 </body>
 </html>

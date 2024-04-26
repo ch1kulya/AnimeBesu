@@ -49,7 +49,7 @@ def admin():
             session['logged_in'] = True
             return redirect(url_for('movie_form'))
         else:
-            flash('Неверный пароль!')
+            flash('Incorrect password!')
     return render_template('admin.html')
 
 @app.route('/movie_form', methods=['GET', 'POST'])

@@ -14,10 +14,15 @@
 </head>
 <body class="text-gray-700">
     <div class="flex flex-col content-center justify-center min-h-screen relative">
-        <h1 class="text-center text-4xl font-bold my-8 gradient-text">{{ movie.title }}</h1>
+        <div class="flex justify-center">
+            <div class="p-4 pt-0 m-8 sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl movie block rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-200 ease-in h-full flex flex-col">
+                <h1 class="text-4xl font-bold my-8 gradient-text">{{ movie.title }}</h1>
+                <p class="gradient-text">{{ movie.description }}</p>
+            </div>
+        </div>
         <div class="flex justify-center">
             <div
-                class="overflow-hidden sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl flex justify-center rounded-md shadow-lg">
+                class="m-8 overflow-hidden sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl flex justify-center rounded-md shadow-lg">
                 <video id="player" poster="{{ movie.poster }}"></video>
             </div>
         </div>

@@ -11,10 +11,10 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# Функция для получения топ-10 самых просматриваемых фильмов
+# Функция для получения топ-15 самых просматриваемых фильмов
 def get_top_movies():
     conn = get_db_connection()
-    top_movies = conn.execute('SELECT * FROM movies ORDER BY views DESC LIMIT 10').fetchall()
+    top_movies = conn.execute('SELECT * FROM movies ORDER BY views DESC LIMIT 15').fetchall()
     conn.close()
     return top_movies
 
@@ -53,7 +53,7 @@ def admin():
     return render_template('admin.html', title='Anime Besu Admin', meta_description='Anime Besu Admin Panel.')
 
 @app.route('/movie_form', methods=['GET', 'POST'])
-@app.route('/movie_form/<int:movie_id>', methods=['GET', 'POST'])  # Добавлен маршрут для редактирования
+@app.route('/movie_form/<int:movie_id>', methods=['GET', 'POST'])
 def movie_form(movie_id=None):
     if not session.get('logged_in'):
         return redirect(url_for('admin'))
@@ -71,15 +71,16 @@ def movie_form(movie_id=None):
         banner = request.form['banner']
         video_url = request.form['video_url']
         poster = request.form['poster']
-        
+        description = request.form['description']  # Получаем описание из формы
+
         if movie:
             # Обновляем существующий фильм
-            conn.execute('UPDATE movies SET title = ?, banner = ?, video_url = ?, poster = ? WHERE id = ?',
-                         (title, banner, video_url, poster, movie_id))
+            conn.execute('UPDATE movies SET title = ?, banner = ?, video_url = ?, poster = ?, description = ? WHERE id = ?',
+                         (title, banner, video_url, poster, description, movie_id))
         else:
             # Добавляем новый фильм
-            conn.execute('INSERT INTO movies (title, banner, video_url, poster) VALUES (?, ?, ?, ?)',
-                         (title, banner, video_url, poster))
+            conn.execute('INSERT INTO movies (title, banner, video_url, poster, description) VALUES (?, ?, ?, ?, ?)',
+                         (title, banner, video_url, poster, description))
         conn.commit()
         conn.close()
         return redirect(url_for('index'))

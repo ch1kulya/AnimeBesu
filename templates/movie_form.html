@@ -30,6 +30,10 @@
             <input type="text" id="poster" name="poster" value="{{ movie.poster if movie else '' }}" required
                 class="form-input">
 
+            <label for="description" class="block text-xl font-semibold p-4 gradient-text">Description:</label>
+            <input type="text" id="description" name="description" value="{{ movie.description if movie else '' }}" required
+                class="form-input">
+
             <input type="submit" value="Save" class="form-button">
         </form>
     </div>

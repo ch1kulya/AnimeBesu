@@ -1,6 +1,28 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, Response
 from werkzeug.security import check_password_hash
 import sqlite3
+import logging
+
+# Настройка логирования
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Создание обработчика для записи логов в файл
+file_handler = logging.FileHandler('app.log')
+file_handler.setLevel(logging.INFO)
+
+# Создание обработчика для вывода логов на консоль
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+
+# Создание форматтера для логов
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+console_handler.setFormatter(formatter)
+
+# Добавление обработчиков к логгеру приложения
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 
 app = Flask(__name__)
 app.secret_key = 'q8X2WzySJCbt#cY4errG63xl*M7A~$u$G*01'
@@ -11,10 +33,10 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# Функция для получения топ-10 самых просматриваемых фильмов
+# Функция для получения топ-15 самых просматриваемых фильмов
 def get_top_movies():
     conn = get_db_connection()
-    top_movies = conn.execute('SELECT * FROM movies ORDER BY views DESC LIMIT 10').fetchall()
+    top_movies = conn.execute('SELECT * FROM movies ORDER BY views DESC LIMIT 15').fetchall()
     conn.close()
     return top_movies
 
@@ -30,6 +52,7 @@ def watch(movie_id):
     conn = get_db_connection()
     conn.execute('UPDATE movies SET views = views + 1 WHERE id = ?', (movie_id,))
     conn.commit()
+    logger.info(f'Views increased for movie ID {movie_id}.')
     movie = conn.execute('SELECT * FROM movies WHERE id = ?', (movie_id,)).fetchone()
     conn.close()
     if movie is not None:
@@ -47,9 +70,11 @@ def admin():
     if request.method == 'POST':
         if 'password' in request.form and check_admin_password(request.form['password']):
             session['logged_in'] = True
+            logger.info('Admin logged in successfully.')
             return redirect(url_for('movie_form'))
         else:
             flash('Incorrect password!')
+            logger.warning('Failed login attempt.')
     return render_template('admin.html', title='Anime Besu Admin', meta_description='Anime Besu Admin Panel.')
 
 @app.route('/movie_form', methods=['GET', 'POST'])
@@ -81,6 +106,7 @@ def movie_form(movie_id=None):
             # Добавляем новый фильм
             conn.execute('INSERT INTO movies (title, banner, video_url, poster, description) VALUES (?, ?, ?, ?, ?)',
                          (title, banner, video_url, poster, description))
+        logger.info('Movie added/updated successfully.')
         conn.commit()
         conn.close()
         return redirect(url_for('index'))
@@ -93,6 +119,17 @@ def support():
     # Криптоадрес для копирования
     crypto_address = "TC2uMBYesp4tx16xxSeHzW2D9pEivFPRKr"
     return render_template('support.html', title='Anime Besu Support', meta_description='Anime Besu Support.', crypto_address=crypto_address)
+
+@app.route('/logs')
+def view_logs():
+    if not session.get('logged_in'):
+        return redirect(url_for('admin'))
+
+    # Чтение содержимого файла логов
+    with open('app.log', 'r') as log_file:
+        logs = log_file.read()
+
+    return Response(logs, mimetype='text/plain')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=443, debug=False, ssl_context=('/etc/letsencrypt/live/ch1ka.su/fullchain.pem', '/etc/letsencrypt/live/ch1ka.su/privkey.pem'))

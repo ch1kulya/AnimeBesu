@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <title>Admin Login</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.svg') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
 </head>
 <body class="text-gray-700">
   <div class="flex flex-col content-center justify-center min-h-screen relative">
-    <h1 class="text-center text-4xl font-bold my-8 gradient-text">Admin Login</h1>
+    <h1 class="text-center text-4xl font-bold my-8 main-text">Admin Login</h1>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
-        <ul class="text-center text-xl font-semibold p-4 gradient-text">
+        <ul class="text-center text-xl font-semibold p-4 main-text">
         {% for message in messages %}
           <li>{{ message }}</li>
         {% endfor %}
@@ -24,7 +25,7 @@
         <input type="submit" value="Login" class="form-button">
     </form>
     <div class="text-center mt-8">
-      <a href="{{ url_for('index') }}" class="footer-text gradient-text">return</a>
+      <a href="{{ url_for('index') }}" class="footer-text main-text">return</a>
     </div>
   </div>
 </body>

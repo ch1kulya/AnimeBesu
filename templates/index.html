@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.svg') }}">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <script src="{{ url_for('static', filename='comeback.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.10/SmoothScroll.js"></script>
     <script>SmoothScroll({ animationTime: 600 })</script>
 </head>
@@ -14,7 +15,7 @@
     <div class="flex flex-wrap content-center justify-center min-h-screen relative">
         <div class="inscription p-48">
             <img class="icon absolute h-3/5 w-3/5 star" src="{{ url_for('static', filename='shape1.svg') }}" z-index="1">
-            <h1 class="text-center text-3xl xl:text-5xl lg:text-4xl sm:text-4xl md:text-4xl font-bold my-8 gradient-text" style="position: relative; z-index: 2;">anime bēsu</h1>
+            <h1 class="text-center text-3xl xl:text-5xl lg:text-4xl sm:text-4xl md:text-4xl font-bold my-8 main-text" style="position: relative; z-index: 2;">anime bēsu</h1>
         </div>
     </div>
     <div class="flex justify-center">
@@ -32,10 +33,10 @@
             {% endfor %}
         </div>
     </div>
-    <div class="flex justify-between items-center mt-8 px-8">
-        <a href="{{ url_for('support') }}" class="footer-text gradient-text">support</a>
-        <p class="footer-text gradient-text">made with ♡ by ch1ka</p>
-        <a href="{{ url_for('admin') }}" class="footer-text gradient-text">admin</a>
+    <div class="flex justify-between items-center mt-8 px-8 mb-4">
+        <a href="{{ url_for('support') }}" class="footer-text main-text">support</a>
+        <p class="footer-text main-text">made with ♡ by ch1ka</p>
+        <a href="{{ url_for('admin') }}" class="footer-text main-text">admin</a>
     </div>
 </body>
 </html>

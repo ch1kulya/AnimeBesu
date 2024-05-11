@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>Support the Author</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.svg') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
 </head>
 <body class="text-gray-700">
     <div class="flex flex-col content-center justify-center min-h-screen relative">
-        <h1 class="text-center text-4xl font-bold my-8 gradient-text">Support the Author</h1>
+        <h1 class="text-center text-4xl font-bold my-8 main-text">Support the Author</h1>
         <p class="text-center text-xl">If you like my project, you can support me by sending me some cryptocurrency.</p>
         <div class="flex flex-col justify-center items-center mt-8">
             <label for="cryptoAddress" class="text-xl mb-2">USDT TRC20 address:</label>
@@ -17,7 +18,7 @@
                 style="border: 1px solid #f8cb9b;">
         </div>
         <div class="text-center mt-8">
-            <a href="{{ url_for('index') }}" class="footer-text gradient-text">return</a>
+            <a href="{{ url_for('index') }}" class="footer-text main-text">return</a>
         </div>
     </div>
 </body>

@@ -27,11 +27,30 @@ logger.addHandler(console_handler)
 app = Flask(__name__)
 app.secret_key = 'SECRET_KEY' # Для разработки
 
+# Функция для инициализации базы данных
+def init_db():
+    conn = get_db_connection()
+    with conn:
+        conn.execute('''CREATE TABLE IF NOT EXISTS movies (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        title TEXT NOT NULL,
+                        banner TEXT,
+                        video_url TEXT,
+                        poster TEXT,
+                        description TEXT,
+                        views INTEGER DEFAULT 0
+                        )''')
+    conn.close()
+    logger.info("Database initialized successfully.")
+
 # Функция для получения соединения с базой данных
 def get_db_connection():
     conn = sqlite3.connect('besu.db')
     conn.row_factory = sqlite3.Row
     return conn
+
+# Проверка и инициализация базы данных при запуске приложения
+init_db()
 
 # Функция для получения топ-15 самых просматриваемых фильмов
 def get_top_movies():
@@ -60,7 +79,7 @@ def watch(movie_id):
     else:
         return redirect(url_for('index'))
 
-# Функция для проверки пароля (для простоты, пароль хранится в коде)
+# Функция для проверки пароля
 def check_admin_password(password):
     admin_password_hash = 'scrypt:32768:8:1$XB7ZdR7608jTtu1J$5957aef0e7310cbee88ea759a0b1df4054abb7e6d9545bf729454a0370783df36f5f15bdc3d2b639678c8dfdf442c1d3a9c7320a06e9ee124976d985ef1fa077'
     return check_password_hash(admin_password_hash, password)

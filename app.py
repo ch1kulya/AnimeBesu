@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Создание обработчика для записи логов в файл
-file_handler = logging.FileHandler('app.log')
+file_handler = logging.FileHandler('besu.log')
 file_handler.setLevel(logging.INFO)
 
 # Создание обработчика для вывода логов на консоль
@@ -29,7 +29,7 @@ app.secret_key = 'SECRET_KEY' # Для разработки
 
 # Функция для получения соединения с базой данных
 def get_db_connection():
-    conn = sqlite3.connect('anime_movies.db')
+    conn = sqlite3.connect('besu.db')
     conn.row_factory = sqlite3.Row
     return conn
 

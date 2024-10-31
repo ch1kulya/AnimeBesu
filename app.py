@@ -25,7 +25,7 @@ logger.addHandler(file_handler)
 logger.addHandler(console_handler)
 
 app = Flask(__name__)
-app.secret_key = 'q8X2WzySJCbt#cY4errG63xl*M7A~$u$G*01'
+app.secret_key = 'SECRET_KEY' # Для разработки
 
 # Функция для получения соединения с базой данных
 def get_db_connection():
@@ -114,12 +114,6 @@ def movie_form(movie_id=None):
     conn.close()
     return render_template('movie_form.html', title='Anime Besu Form', meta_description='Anime Besu Form.', movie=movie, top_movies=top_movies)
 
-@app.route('/support')
-def support():
-    # Криптоадрес для копирования
-    crypto_address = "TC2uMBYesp4tx16xxSeHzW2D9pEivFPRKr"
-    return render_template('support.html', title='Anime Besu Support', meta_description='Anime Besu Support.', crypto_address=crypto_address)
-
 @app.route('/logs')
 def view_logs():
     if not session.get('logged_in'):
@@ -132,4 +126,4 @@ def view_logs():
     return Response(logs, mimetype='text/plain')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=False)
+    app.run(host='0.0.0.0', port=6969, debug=False)
